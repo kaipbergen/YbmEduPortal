@@ -20,7 +20,13 @@
     "duration": "Duration",
     "price": "Price",
     "comingSoon": "Coming Soon",
-    "paymentInProgress": "Payment system is under development."
+    "paymentInProgress": "Payment system is under development.",
+    "types": {
+      "all": "All",
+      "ielts": "IELTS",
+      "sat": "SAT",
+      "general": "General English"
+    }
   },
   "successStories": {
     "title": "Success Stories",

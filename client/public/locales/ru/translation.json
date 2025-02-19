@@ -20,7 +20,13 @@
     "duration": "Длительность",
     "price": "Цена",
     "comingSoon": "Скоро",
-    "paymentInProgress": "Платежная система находится в разработке."
+    "paymentInProgress": "Платежная система находится в разработке.",
+    "types": {
+      "all": "Все",
+      "ielts": "IELTS",
+      "sat": "SAT",
+      "general": "Общий английский"
+    }
   },
   "successStories": {
     "title": "Истории успеха",
