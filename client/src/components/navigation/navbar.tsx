@@ -19,13 +19,11 @@ export default function Navbar() {
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
             <Link href="/">
-              <a className="flex items-center">
-                <img 
-                  src="/ybm_logo.png" 
-                  alt="YBM Logo" 
-                  className="h-10 w-auto"
-                />
-              </a>
+              <img 
+                src="/ybm_logo.png" 
+                alt="YBM Logo" 
+                className="h-10 w-auto"
+              />
             </Link>
           </div>
 
