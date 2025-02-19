@@ -1,4 +1,4 @@
-import { pgTable, text, serial, integer, boolean } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, integer, boolean, decimal } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -9,6 +9,7 @@ export const courses = pgTable("courses", {
   description: text("description").notNull(),
   level: text("level").notNull(),
   duration: text("duration").notNull(),
+  price: decimal("price").notNull(),
 });
 
 export const materials = pgTable("materials", {
@@ -27,13 +28,27 @@ export const enquiries = pgTable("enquiries", {
   message: text("message").notNull(),
 });
 
+export const payments = pgTable("payments", {
+  id: serial("id").primaryKey(),
+  courseId: integer("course_id").notNull(),
+  email: text("email").notNull(),
+  amount: decimal("amount").notNull(),
+  currency: text("currency").notNull().default('usd'),
+  status: text("status").notNull(),
+  stripeSessionId: text("stripe_session_id").notNull(),
+  createdAt: text("created_at").notNull(),
+});
+
 export const insertCourseSchema = createInsertSchema(courses).omit({ id: true });
 export const insertMaterialSchema = createInsertSchema(materials).omit({ id: true });
 export const insertEnquirySchema = createInsertSchema(enquiries).omit({ id: true });
+export const insertPaymentSchema = createInsertSchema(payments).omit({ id: true });
 
 export type Course = typeof courses.$inferSelect;
 export type Material = typeof materials.$inferSelect;
 export type Enquiry = typeof enquiries.$inferSelect;
+export type Payment = typeof payments.$inferSelect;
 export type InsertCourse = z.infer<typeof insertCourseSchema>;
 export type InsertMaterial = z.infer<typeof insertMaterialSchema>;
 export type InsertEnquiry = z.infer<typeof insertEnquirySchema>;
+export type InsertPayment = z.infer<typeof insertPaymentSchema>;

@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { PaymentButton } from "@/components/ui/payment-button";
 import type { Course } from "@shared/schema";
 
 interface CourseCardProps {
@@ -24,8 +24,12 @@ export default function CourseCard({ course }: CourseCardProps) {
               <span className="text-sm font-medium">Duration:</span>
               <span className="text-sm">{course.duration}</span>
             </div>
+            <div className="flex justify-between">
+              <span className="text-sm font-medium">Price:</span>
+              <span className="text-sm font-bold">${course.price}</span>
+            </div>
           </div>
-          <Button className="w-full">Learn More</Button>
+          <PaymentButton courseId={course.id} className="w-full" />
         </div>
       </CardContent>
     </Card>

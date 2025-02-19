@@ -9,6 +9,8 @@ import Courses from "@/pages/courses";
 import Materials from "@/pages/materials";
 import UniversityGuide from "@/pages/university-guide";
 import Contact from "@/pages/contact";
+import PaymentSuccess from "@/pages/payment/success";
+import PaymentCancel from "@/pages/payment/cancel";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -22,6 +24,8 @@ function Router() {
           <Route path="/materials" component={Materials} />
           <Route path="/university-guide" component={UniversityGuide} />
           <Route path="/contact" component={Contact} />
+          <Route path="/payment/success" component={PaymentSuccess} />
+          <Route path="/payment/cancel" component={PaymentCancel} />
           <Route component={NotFound} />
         </Switch>
       </main>
