@@ -14,7 +14,7 @@ export interface IStorage {
   getMaterials(): Promise<Material[]>;
   getMaterialsByCourse(courseId: number): Promise<Material[]>;
   createMaterial(material: InsertMaterial): Promise<Material>;
-
+  
   // Enquiries
   createEnquiry(enquiry: InsertEnquiry): Promise<Enquiry>;
 }
@@ -51,6 +51,20 @@ export class MemStorage implements IStorage {
         description: "Complete preparation for SAT Math and Verbal sections",
         level: "High School",
         duration: "16 weeks"
+      },
+      {
+        title: "English for Beginners",
+        type: "General English",
+        description: "Foundation course covering basic English grammar, vocabulary, and conversation",
+        level: "Beginner",
+        duration: "8 weeks"
+      },
+      {
+        title: "Business English",
+        type: "General English",
+        description: "Professional English course focusing on business communication",
+        level: "Intermediate",
+        duration: "10 weeks"
       }
     ];
 
