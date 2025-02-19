@@ -19,7 +19,11 @@ export default function Hero() {
               <Button size="lg" variant="secondary">
                 {t("hero.exploreCourses")}
               </Button>
-              <Button size="lg" variant="outline">
+              <Button 
+                size="lg" 
+                variant="outline"
+                className="opacity-0 hover:opacity-100 transition-opacity duration-300"
+              >
                 {t("hero.learnMore")}
               </Button>
             </div>

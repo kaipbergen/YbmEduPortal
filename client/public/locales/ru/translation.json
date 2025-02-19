@@ -4,7 +4,8 @@
     "courses": "Курсы",
     "materials": "Учебные материалы",
     "universityGuide": "Гид по университетам",
-    "contact": "Контакты"
+    "contact": "Контакты",
+    "getStarted": "Начать обучение"
   },
   "hero": {
     "title": "Ваш путь к академическому успеху",
@@ -20,6 +21,10 @@
     "price": "Цена",
     "comingSoon": "Скоро",
     "paymentInProgress": "Платежная система находится в разработке."
+  },
+  "successStories": {
+    "title": "Истории успеха",
+    "description": "Достижения наших студентов"
   },
   "contact": {
     "title": "Свяжитесь с нами",

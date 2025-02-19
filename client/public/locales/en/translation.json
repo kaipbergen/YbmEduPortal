@@ -4,7 +4,8 @@
     "courses": "Courses",
     "materials": "Study Materials",
     "universityGuide": "University Guide",
-    "contact": "Contact"
+    "contact": "Contact",
+    "getStarted": "Get Started"
   },
   "hero": {
     "title": "Your Path to Academic Excellence",
@@ -20,6 +21,10 @@
     "price": "Price",
     "comingSoon": "Coming Soon",
     "paymentInProgress": "Payment system is under development."
+  },
+  "successStories": {
+    "title": "Success Stories",
+    "description": "See what our students have achieved"
   },
   "contact": {
     "title": "Contact Us",

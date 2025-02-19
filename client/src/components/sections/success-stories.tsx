@@ -1,4 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { useTranslation } from "react-i18next";
 
 const stories = [
   {
@@ -22,10 +23,12 @@ const stories = [
 ];
 
 export default function SuccessStories() {
+  const { t } = useTranslation();
+
   return (
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-12">Success Stories</h2>
+        <h2 className="text-3xl font-bold text-center mb-12">{t('successStories.title')}</h2>
         <div className="grid gap-8 md:grid-cols-3">
           {stories.map((story, index) => (
             <Card key={index} className="overflow-hidden">
