@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { useTranslation } from "react-i18next";
 
 interface PaymentButtonProps {
   courseId: number;
@@ -8,11 +9,12 @@ interface PaymentButtonProps {
 
 export function PaymentButton({ courseId, className }: PaymentButtonProps) {
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   const handlePayment = () => {
     toast({
-      title: "Coming Soon",
-      description: "Платежная система находится в разработке.",
+      title: t("courses.comingSoon"),
+      description: t("courses.paymentInProgress"),
     });
   };
 
@@ -21,7 +23,7 @@ export function PaymentButton({ courseId, className }: PaymentButtonProps) {
       onClick={handlePayment}
       className={className}
     >
-      Записаться на курс
+      {t("courses.enrollNow")}
     </Button>
   );
 }

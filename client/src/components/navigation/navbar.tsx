@@ -1,16 +1,19 @@
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
 
 export default function Navbar() {
   const [location] = useLocation();
+  const { t } = useTranslation();
 
   const links = [
-    { href: "/", label: "Home" },
-    { href: "/courses", label: "Courses" },
-    { href: "/materials", label: "Study Materials" },
-    { href: "/university-guide", label: "University Guide" },
-    { href: "/contact", label: "Contact" },
+    { href: "/", label: t("navigation.home") },
+    { href: "/courses", label: t("navigation.courses") },
+    { href: "/materials", label: t("navigation.materials") },
+    { href: "/university-guide", label: t("navigation.universityGuide") },
+    { href: "/contact", label: t("navigation.contact") },
   ];
 
   return (
@@ -44,8 +47,9 @@ export default function Navbar() {
             ))}
           </div>
 
-          <div className="hidden md:block">
-            <Button>Get Started</Button>
+          <div className="hidden md:flex items-center space-x-4">
+            <LanguageSwitcher />
+            <Button>{t("navigation.getStarted", "Get Started")}</Button>
           </div>
         </div>
       </div>
