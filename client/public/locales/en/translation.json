@@ -5,21 +5,13 @@
     "materials": "Study Materials",
     "universityGuide": "University Guide",
     "contact": "Contact",
-<<<<<<< HEAD
-    "getStarted": "Get Started"
-=======
     "login": "Login",
     "register": "Register"
->>>>>>> 96e18c4 (Initial commit with latest updates)
   },
   "hero": {
     "title": "Your Path to Academic Excellence",
     "subtitle": "Expert guidance for IELTS, SAT, and university applications. Start your journey to success with YBM.",
-<<<<<<< HEAD
-    "exploreCourses": "Explore Courses",
-=======
     "exploreCourses": "Sign up for a trial lesson",
->>>>>>> 96e18c4 (Initial commit with latest updates)
     "learnMore": "Learn More"
   },
   "courses": {

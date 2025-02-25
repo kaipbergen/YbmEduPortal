@@ -5,21 +5,13 @@
     "materials": "Учебные материалы",
     "universityGuide": "Гид по университетам",
     "contact": "Контакты",
-<<<<<<< HEAD
-    "getStarted": "Начать обучение"
-=======
     "login": "Войти",
     "register": "Регистрация"
->>>>>>> 96e18c4 (Initial commit with latest updates)
   },
   "hero": {
     "title": "Ваш путь к академическому успеху",
     "subtitle": "Экспертное руководство по подготовке к IELTS, SAT и поступлению в университет. Начните свой путь к успеху с YBM.",
-<<<<<<< HEAD
-    "exploreCourses": "Изучить курсы",
-=======
     "exploreCourses": "Записаться на пробный урок",
->>>>>>> 96e18c4 (Initial commit with latest updates)
     "learnMore": "Узнать больше"
   },
   "courses": {
@@ -38,11 +30,7 @@
     }
   },
   "successStories": {
-<<<<<<< HEAD
-    "title": "Истории успеха",
-=======
     "title": "Отзывы наших студентов",
->>>>>>> 96e18c4 (Initial commit with latest updates)
     "description": "Достижения наших студентов"
   },
   "contact": {

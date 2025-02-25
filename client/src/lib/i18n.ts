@@ -6,16 +6,6 @@ i18n
   .use(Backend)
   .use(initReactI18next)
   .init({
-<<<<<<< HEAD
-    lng: 'en', // default language
-    fallbackLng: 'en',
-    supportedLngs: ['en', 'ru'],
-    
-    interpolation: {
-      escapeValue: false, // not needed for React
-    },
-
-=======
     lng: 'en',
     fallbackLng: 'en',
     supportedLngs: ['en', 'ru'],
@@ -24,7 +14,6 @@ i18n
     interpolation: {
       escapeValue: false,
     },
->>>>>>> 96e18c4 (Initial commit with latest updates)
     backend: {
       loadPath: '/locales/{{lng}}/{{ns}}.json',
     },
