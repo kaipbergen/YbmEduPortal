@@ -1,4 +1,5 @@
-import { Switch, Route } from "wouter";
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { queryClient } from "./lib/queryClient";
@@ -12,33 +13,41 @@ import UniversityGuide from "@/pages/university-guide";
 import Contact from "@/pages/contact";
 import PaymentSuccess from "@/pages/payment/success";
 import PaymentCancel from "@/pages/payment/cancel";
+import Login from "@/pages/login";
+import Register from "@/pages/register";
 import NotFound from "@/pages/not-found";
 
-function Router() {
+function AppRouter() {
   return (
-    <div className="min-h-screen bg-background">
+    <BrowserRouter>
       <Navbar />
       <main>
-        <Switch>
-          <Route path="/" component={Home} />
-          <Route path="/courses" component={Courses} />
-          <Route path="/materials" component={Materials} />
-          <Route path="/university-guide" component={UniversityGuide} />
-          <Route path="/contact" component={Contact} />
-          <Route path="/payment/success" component={PaymentSuccess} />
-          <Route path="/payment/cancel" component={PaymentCancel} />
-          <Route component={NotFound} />
-        </Switch>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/courses" element={<Courses />} />
+          <Route path="/materials" element={<Materials />} />
+          <Route path="/university-guide" element={<UniversityGuide />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/payment/success" element={<PaymentSuccess />} />
+          <Route path="/payment/cancel" element={<PaymentCancel />} />
+
+          {/* New routes for login and register */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+
+          {/* Catch-all 404 route */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </main>
       <Toaster />
-    </div>
+    </BrowserRouter>
   );
 }
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Router />
+      <AppRouter />
     </QueryClientProvider>
   );
 }

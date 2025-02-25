@@ -29,10 +29,23 @@ export default function CourseCard({ course }: CourseCardProps) {
             </div>
             <div className="flex justify-between">
               <span className="text-sm font-medium">{t('courses.price')}:</span>
+<<<<<<< HEAD
               <span className="text-sm font-bold">${course.price}</span>
             </div>
           </div>
           <PaymentButton courseId={course.id} className="w-full" />
+=======
+              <span className="text-sm font-bold">
+                {Number(course.price).toLocaleString("ru-RU")} тенге
+              </span>
+            </div>
+          </div>
+          <PaymentButton
+            courseId={course.id}
+            className="w-full"
+            onClick={() => window.open("https://wa.me/77788819122", "_blank")}
+          />
+>>>>>>> 96e18c4 (Initial commit with latest updates)
         </div>
       </CardContent>
     </Card>

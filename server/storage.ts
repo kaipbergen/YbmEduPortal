@@ -43,35 +43,35 @@ export class MemStorage implements IStorage {
         type: "IELTS",
         description: "Comprehensive IELTS preparation course covering all sections",
         level: "Intermediate to Advanced",
-        duration: "12 weeks",
-        price: "599.99"
+        duration: "8 недель",         // Changed from "12 weeks"
+        price: "120 000 тенге"         // Changed from "599.99"
       },
       {
         title: "SAT Complete Course",
         type: "SAT",
         description: "Complete preparation for SAT Math and Verbal sections",
         level: "High School",
-        duration: "16 weeks",
-        price: "799.99"
+        duration: "12 недель",        // Changed from "16 weeks"
+        price: "180 000 тенге"         // Changed from "799.99"
       },
       {
-        title: "English for Beginners",
+        title: "General English",
         type: "General English",
         description: "Foundation course covering basic English grammar, vocabulary, and conversation",
         level: "Beginner",
-        duration: "8 weeks",
-        price: "299.99"
+        duration: "в месяц",          // Updated to reflect monthly billing
+        price: "45000 тенге в месяц"   // Changed from "299.99"
       },
       {
         title: "Business English",
         type: "General English",
         description: "Professional English course focusing on business communication",
         level: "Intermediate",
-        duration: "10 weeks",
-        price: "399.99"
+        duration: "в месяц",          // Updated to reflect monthly billing
+        price: "50000 тенге в месяц"   // Changed from "399.99"
       }
     ];
-
+  
     sampleCourses.forEach(course => this.createCourse(course));
   }
 

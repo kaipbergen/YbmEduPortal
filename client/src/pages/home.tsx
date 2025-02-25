@@ -4,6 +4,7 @@ import SuccessStories from "@/components/sections/success-stories";
 import { useQuery } from "@tanstack/react-query";
 import type { Course } from "@shared/schema";
 import { useTranslation } from "react-i18next";
+import Footer from "@/components/sections/footer";
 
 export default function Home() {
   const { data: courses, isLoading } = useQuery<Course[]>({
@@ -35,6 +36,8 @@ export default function Home() {
       </section>
 
       <SuccessStories />
+      
+      <Footer />
     </div>
   );
 }

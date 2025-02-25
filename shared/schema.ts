@@ -1,3 +1,4 @@
+// shared/schema.ts
 import { pgTable, text, serial, integer, decimal } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
@@ -5,7 +6,7 @@ import { z } from "zod";
 export const courses = pgTable("courses", {
   id: serial("id").primaryKey(),
   title: text("title").notNull(),
-  type: text("type").notNull(), // IELTS, SAT, General English
+  type: text("type").notNull(), // e.g., "IELTS", "SAT"
   description: text("description").notNull(),
   level: text("level").notNull(),
   duration: text("duration").notNull(),
@@ -14,8 +15,8 @@ export const courses = pgTable("courses", {
 
 export const materials = pgTable("materials", {
   id: serial("id").primaryKey(),
-  title: text("title").notNull(),
-  type: text("type").notNull(),
+  title: text("title").notNull(), // We'll store PDF name without .pdf
+  type: text("type").notNull(),   // e.g. "IELTS Reading", "SAT Math", "Vocabulary"
   description: text("description").notNull(),
   courseId: integer("course_id").notNull(),
 });
