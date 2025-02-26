@@ -9,7 +9,7 @@ dotenv.config();
 
 const router = Router();
 
-interface User {
+export interface User {
   id: string;
   email: string;
   passwordHash?: string;
@@ -24,6 +24,7 @@ function generateToken(user: User) {
   });
 }
 
+// Registration endpoint (traditional)
 router.post("/register", async (req: Request, res: Response) => {
   const { email, password } = req.body;
   if (!email || !password)
@@ -40,6 +41,7 @@ router.post("/register", async (req: Request, res: Response) => {
   res.json({ token });
 });
 
+// Login endpoint (traditional)
 router.post("/login", async (req: Request, res: Response) => {
   const { email, password } = req.body;
   if (!email || !password)
@@ -58,45 +60,52 @@ router.post("/login", async (req: Request, res: Response) => {
 });
 
 // --- Google OAuth Setup ---
-
 passport.use(
-    new GoogleStrategy(
-      {
-        clientID: process.env.GOOGLE_CLIENT_ID || "",
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
-        callbackURL: "/api/auth/google/callback",
-      },
-      (
-        accessToken: string,
-        refreshToken: string,
-        profile: GoogleProfile,
-        done: (error: any, user?: any) => void
-      ) => {
-        let user = users.find(u => u.googleId === profile.id);
-        if (!user) {
-          user = {
-            id: Date.now().toString(),
-            email: profile.emails ? profile.emails[0].value : "",
-            googleId: profile.id,
-          };
-          users.push(user);
-        }
-        done(null, user);
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID || "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+      callbackURL: "/api/auth/google/callback",
+    },
+    (
+      accessToken: string,
+      refreshToken: string,
+      profile: GoogleProfile,
+      done: (error: any, user?: any) => void
+    ) => {
+      let user = users.find(u => u.googleId === profile.id);
+      if (!user) {
+        user = {
+          id: Date.now().toString(),
+          email: profile.emails ? profile.emails[0].value : "",
+          googleId: profile.id,
+        };
+        users.push(user);
       }
-    ) as any // Optionally cast to any if type conflicts persist
-  );
+      done(null, user);
+    }
+  ) as any // Cast to any to bypass type conflicts
+);
 
 router.use(passport.initialize());
 
+// Route to initiate Google OAuth flow
 router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 
+// Google OAuth callback endpoint:
+// This sets an HTTP-only cookie with the JWT and then redirects to the profile page.
 router.get(
   "/google/callback",
   passport.authenticate("google", { session: false, failureRedirect: "/login" }),
   (req: Request, res: Response) => {
-    // @ts-ignore
+    // @ts-ignore: Assuming req.user is populated by Passport
     const token = generateToken(req.user);
-    res.json({ token });
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // Use secure cookies in production
+      sameSite: "lax",
+    });
+    res.redirect("http://localhost:5002/profile");
   }
 );
 

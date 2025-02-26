@@ -16,6 +16,7 @@ import PaymentCancel from "@/pages/payment/cancel";
 import Login from "@/pages/login";
 import Register from "@/pages/register";
 import NotFound from "@/pages/not-found";
+import Profile from "@/pages/profile"; // New import for Profile page
 
 function AppRouter() {
   return (
@@ -31,9 +32,10 @@ function AppRouter() {
           <Route path="/payment/success" element={<PaymentSuccess />} />
           <Route path="/payment/cancel" element={<PaymentCancel />} />
 
-          {/* New routes for login and register */}
+          {/* New routes for login, register, and profile */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/profile" element={<Profile />} />
 
           {/* Catch-all 404 route */}
           <Route path="*" element={<NotFound />} />

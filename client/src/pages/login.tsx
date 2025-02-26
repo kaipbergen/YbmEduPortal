@@ -80,7 +80,7 @@ export default function Login() {
         <hr className="my-4" />
         {/* Google Auth Button */}
         <button
-          onClick={() => (window.location.href = "http://localhost:5002/api/auth/google")}
+          onClick={() => (window.location.href = "/api/auth/google")}
           className="w-full flex items-center justify-center gap-2 border border-gray-300 py-2 rounded hover:bg-gray-100 transition"
         >
           <img
