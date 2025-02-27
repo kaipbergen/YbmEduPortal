@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 interface LoginFormData {
   email: string;
@@ -8,16 +9,20 @@ interface LoginFormData {
 }
 
 export default function Login() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginFormData>();
+  const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>();
+  const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<LoginFormData> = (data) => {
-    console.log("Login form data:", data);
-    // TODO: Replace with your login API call
-    alert("Вы успешно вошли!");
+  const onSubmit: SubmitHandler<LoginFormData> = async (data) => {
+    try {
+      const response = await axios.post("/api/auth/login", data, { withCredentials: true });
+      if (response.data.success) {
+        navigate("/profile");
+      } else {
+        alert(response.data.message || "Login failed");
+      }
+    } catch (error: any) {
+      alert(error.response?.data?.message || "Login failed");
+    }
   };
 
   return (
@@ -27,9 +32,7 @@ export default function Login() {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           {/* Email Field */}
           <div>
-            <label htmlFor="email" className="block text-sm font-medium">
-              E-mail
-            </label>
+            <label htmlFor="email" className="block text-sm font-medium">E-mail</label>
             <input
               id="email"
               type="email"
@@ -43,9 +46,7 @@ export default function Login() {
           </div>
           {/* Password Field */}
           <div>
-            <label htmlFor="password" className="block text-sm font-medium">
-              Пароль
-            </label>
+            <label htmlFor="password" className="block text-sm font-medium">Пароль</label>
             <input
               id="password"
               type="password"
@@ -59,9 +60,9 @@ export default function Login() {
           </div>
           {/* Forgot Password */}
           <div className="text-right">
-            <a href="#" className="text-blue-500 hover:underline text-sm">
+            <Link to="/forgot-password" className="text-blue-500 hover:underline text-sm">
               Забыли пароль?
-            </a>
+            </Link>
           </div>
           {/* Submit Button */}
           <button

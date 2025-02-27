@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 interface RegisterFormData {
   email: string;
@@ -16,11 +17,33 @@ export default function Register() {
     watch,
     formState: { errors },
   } = useForm<RegisterFormData>();
+  const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<RegisterFormData> = (data) => {
-    console.log("Register form data:", data);
-    // TODO: Replace with your registration API call
-    alert("Аккаунт создан успешно!");
+  const onSubmit: SubmitHandler<RegisterFormData> = async (data) => {
+    // Check that passwords match
+    if (data.password !== data.confirmPassword) {
+      alert("Пароли не совпадают");
+      return;
+    }
+
+    try {
+      // Make a POST request to /api/auth/register
+      const response = await axios.post("/api/auth/register", {
+        email: data.email,
+        password: data.password,
+      }, { withCredentials: true });
+
+      // If the server responds with { success: true }, navigate to /profile
+      if (response.data.success) {
+        navigate("/profile");
+      } else {
+        // Otherwise show an error message from the server or a fallback
+        alert(response.data.message || "Registration failed");
+      }
+    } catch (error: any) {
+      // If the server returns an error (like 400), display its message
+      alert(error.response?.data?.message || "Registration failed");
+    }
   };
 
   return (
@@ -41,9 +64,12 @@ export default function Register() {
               {...register("email", { required: "Укажите email" })}
             />
             {errors.email && (
-              <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+              <p className="text-red-500 text-sm mt-1">
+                {errors.email.message}
+              </p>
             )}
           </div>
+
           {/* Password Field */}
           <div>
             <label htmlFor="password" className="block text-sm font-medium">
@@ -57,15 +83,15 @@ export default function Register() {
               {...register("password", { required: "Укажите пароль" })}
             />
             {errors.password && (
-              <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
+              <p className="text-red-500 text-sm mt-1">
+                {errors.password.message}
+              </p>
             )}
           </div>
+
           {/* Confirm Password Field */}
           <div>
-            <label
-              htmlFor="confirmPassword"
-              className="block text-sm font-medium"
-            >
+            <label htmlFor="confirmPassword" className="block text-sm font-medium">
               Повторите пароль
             </label>
             <input
@@ -85,13 +111,16 @@ export default function Register() {
               </p>
             )}
           </div>
+
           {/* Terms Agreement */}
           <div className="flex items-center gap-2">
             <input
               type="checkbox"
               id="terms"
               className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-              {...register("terms", { required: "Примите политику конфиденциальности" })}
+              {...register("terms", {
+                required: "Примите политику конфиденциальности",
+              })}
             />
             <label htmlFor="terms" className="text-sm text-gray-700">
               Я ознакомился(ась) с{" "}
@@ -108,6 +137,7 @@ export default function Register() {
           {errors.terms && (
             <p className="text-red-500 text-sm mt-1">{errors.terms.message}</p>
           )}
+
           {/* Submit Button */}
           <button
             type="submit"
@@ -116,6 +146,7 @@ export default function Register() {
             Зарегистрировать аккаунт
           </button>
         </form>
+
         <div className="mt-4 text-center">
           Уже есть аккаунт?{" "}
           <Link to="/login" className="text-blue-600 hover:underline">
@@ -123,6 +154,7 @@ export default function Register() {
           </Link>
         </div>
         <hr className="my-4" />
+        {/* Google Auth Button */}
         <button
           onClick={() => (window.location.href = "/api/auth/google")}
           className="w-full flex items-center justify-center gap-2 border border-gray-300 py-2 rounded hover:bg-gray-100 transition"
