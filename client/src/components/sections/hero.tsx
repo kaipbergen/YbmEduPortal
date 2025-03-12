@@ -14,7 +14,7 @@ export default function Hero() {
         bg-cover 
         bg-center 
         bg-no-repeat
-        bg-[url('/images/d.png')]
+        bg-[url('/images/hero.png')]
         min-h-[510px]
         rounded-b-[80px]
       p

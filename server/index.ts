@@ -2,6 +2,12 @@ import express, { type Request, Response, NextFunction } from "express";
 import cookieParser from "cookie-parser";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import path from "path";
+import { fileURLToPath } from "url";
+
+// Define __filename and __dirname for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
@@ -10,13 +16,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Parse cookies from incoming requests
-// Use a double cast to bypass the type conflict.
 app.use(cookieParser() as unknown as express.RequestHandler);
 
 // Logging middleware with explicit type annotation
 const loggingMiddleware: express.RequestHandler = (req: Request, res: Response, next: NextFunction) => {
   const start = Date.now();
-  const path = req.path;
+  const pathReq = req.path;
   let capturedJsonResponse: Record<string, any> | undefined = undefined;
 
   const originalResJson = res.json;
@@ -27,8 +32,8 @@ const loggingMiddleware: express.RequestHandler = (req: Request, res: Response, 
 
   res.on("finish", () => {
     const duration = Date.now() - start;
-    if (path.startsWith("/api")) {
-      let logLine = `${req.method} ${path} ${res.statusCode} in ${duration}ms`;
+    if (pathReq.startsWith("/api")) {
+      let logLine = `${req.method} ${pathReq} ${res.statusCode} in ${duration}ms`;
       if (capturedJsonResponse) {
         logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
       }
@@ -43,6 +48,9 @@ const loggingMiddleware: express.RequestHandler = (req: Request, res: Response, 
 };
 
 app.use("/", loggingMiddleware);
+
+// Serve static files from the "uploads" folder so that uploaded files are accessible
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 (async () => {
   const server = await registerRoutes(app);
@@ -62,7 +70,7 @@ app.use("/", loggingMiddleware);
     serveStatic(app);
   }
 
-  // Parse the port as a number
+  // Parse the port as a number and start the server
   const PORT = Number(process.env.PORT) || 5002;
   server.listen(PORT, "0.0.0.0", () => {
     log(`serving on port ${PORT}`);

@@ -35,6 +35,7 @@ export default function Register() {
 
       // If the server responds with { success: true }, navigate to /profile
       if (response.data.success) {
+        window.location.href = "/profile";
         navigate("/profile");
       } else {
         // Otherwise show an error message from the server or a fallback

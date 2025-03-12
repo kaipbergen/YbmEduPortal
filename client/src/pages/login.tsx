@@ -16,6 +16,7 @@ export default function Login() {
     try {
       const response = await axios.post("/api/auth/login", data, { withCredentials: true });
       if (response.data.success) {
+        window.location.href = "/profile";
         navigate("/profile");
       } else {
         alert(response.data.message || "Login failed");
